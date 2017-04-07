@@ -31,6 +31,15 @@ type Customer =
 
 type [<Measure>] Km
 type Distance = float<Km>
+        static member create id name = { Id = id; Name = name; Points = 0.<Point>; FrequentFlyerStatus = Regular }
+        member this.isGoldMember() = 
+            match this.FrequentFlyerStatus with
+            | Gold _ -> true
+            | _ -> false
+
+type [<Measure>] Km
+type Distance = float<Km>
+let createDistance d = d * 1.<Km>
 
 type DestinationName = string
 type DestinationId = int
@@ -43,6 +52,11 @@ type Destination =
 
 type [<Measure>] SEK
 type Price = float<SEK>
+    with static member create id name = { Id = id; Name = name }
+
+type [<Measure>] SEK
+type Price = float<SEK>
+let createPrice p = p * 1.<SEK>
 
 type TicketClass = 
     | Economy
@@ -65,3 +79,11 @@ type Ticket =
             To = toDest
         }
 
+    with static member create customerId price ticketClass fromDestination toDestination = 
+            {
+                CustomerId = customerId
+                Price = price
+                TicketClass = ticketClass
+                From = fromDestination
+                To = toDestination
+            }

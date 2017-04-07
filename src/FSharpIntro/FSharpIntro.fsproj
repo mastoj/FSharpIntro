@@ -58,6 +58,12 @@
     <Compile Include="Lists.fs" />
     <Compile Include="Types.fs" />
     <Compile Include="Functions.fs" />
+    <Compile Include="List.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Functions.fs" />
+    <Compile Include="Data.fs" />
+    <Compile Include="Services.fs" />
+    <Compile Include="Application.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />

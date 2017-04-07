@@ -1,4 +1,5 @@
 ﻿module Functions
+
 open System
 open Types
 
@@ -6,6 +7,11 @@ module Conversion =
     
     let priceToPoints (price: float<SEK>)= price * 1.<Point/SEK>
     let distanceToPoints (distance: float<Km>) = distance * 0.3<Point/Km>
+    let priceToPoints price = 
+        price * 1.<Point/SEK>
+
+    let distanceToPoints distance = 
+        distance * 0.3<Point/Km>
 
 module Customer = 
     let setGoldStatus customer = 
@@ -37,6 +43,7 @@ module Customer =
         then setGoldStatus customer
         else setRegularStatus customer
    
+
 module Tickets = 
     let createTicket getPrice customerId fromDestination toDestination ticketClass =
         getPrice ((fromDestination, toDestination), ticketClass)
@@ -54,4 +61,5 @@ module Tickets =
     let tryUpgradeTicketForCustomer (customer:Customer) ticket = 
         if customer.isGoldMember()
         then upgradeClass ticket
+        else ticket
         else ticket

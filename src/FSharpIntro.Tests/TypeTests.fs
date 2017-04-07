@@ -112,6 +112,7 @@ module CustomerTests =
         |> should be True
         
 module DestinationTests = 
+module DistanceTests = 
     [<Fact>]
     let ``create destination creates destination``() = 
         Destination.create 3 "a destination"
