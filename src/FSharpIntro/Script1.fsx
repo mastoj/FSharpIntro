@@ -48,3 +48,6 @@ type Ticket =
         From: Destination
         To: Destination
     }
+﻿
+﻿
+﻿#load "Types.fs
