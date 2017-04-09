@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpBucks", "FSharpBucks\FSharpBucks.fsproj", "{56A0B436-4916-4FF4-85B7-3249FD4BB5A5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpIntro", "FSharpIntro\FSharpIntro.fsproj", "{56A0B436-4916-4FF4-85B7-3249FD4BB5A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

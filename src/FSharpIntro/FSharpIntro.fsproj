@@ -8,11 +8,11 @@
     <ProjectGuid>56a0b436-4916-4ff4-85b7-3249fd4bb5a5</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>FSharpBucks</RootNamespace>
-    <AssemblyName>FSharpBucks</AssemblyName>
+    <AssemblyName>FSharpIntro</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
-    <Name>FSharpBucks</Name>
+    <Name>FSharpIntro</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +58,7 @@
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
