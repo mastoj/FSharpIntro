@@ -1,0 +1,46 @@
+@font-face {
+    font-family: Raleway;
+    src: url(https://fonts.googleapis.com/css?family=Raleway);
+}
+
+body,
+.reveal,
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: 'Raleway', sans-serif;
+}
+
+.reveal a {
+    color: #BEEE62;
+}
+
+.reveal .backgrounds {
+    background-color: #36393B;
+}
+
+.reveal .controls .navigate-right, .reveal .controls .navigate-right.enabled {
+    border-left-color: #BEEE62;
+}
+.reveal .controls .navigate-right.enabled:hover {
+    border-left-color: #F4743B;
+}
+
+.reveal .controls .navigate-left, .reveal .controls .navigate-left.enabled {
+    border-right-color: #BEEE62;
+}
+.reveal .controls .navigate-left.enabled:hover {
+    border-right-color: #F4743B;
+}
+
+.reveal .controls .navigate-down, .reveal .controls .navigate-down.enabled {
+    border-top-color: #BEEE62;
+}
+.reveal .controls .navigate-down.enabled:hover {
+    border-top-color: #F4743B;
+}
+
+.reveal .controls .navigate-up, .reveal .controls .navigate-up.enabled {
+    border-bottom-color: #BEEE62;
+}
+.reveal .controls .navigate-up.enabled:hover {
+    border-bottom-color: #F4743B;
+}
