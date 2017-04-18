@@ -6,13 +6,29 @@
 
 ***
 
-### What is FsReveal?
+# What is FsReveal?
+
+<div class="columns">
+
+<div class="col-1-2">
 
 - Generates [reveal.js](http://lab.hakim.se/reveal-js/#/) presentation from [markdown](http://daringfireball.net/projects/markdown/)
 - Utilizes [FSharp.Formatting](https://github.com/tpetricek/FSharp.Formatting) for markdown parsing
 - Get it from [http://fsprojects.github.io/FsReveal/](http://fsprojects.github.io/FsReveal/)
 
+</div>
+
+<div class="col-1-4">
+
 ![FsReveal](images/logo.png)
+
+</div>
+
+<div class="col-1-4" style="background-color: red;">
+
+do I have this in a block as
+
+</div>
 
 ***
 
