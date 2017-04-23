@@ -2,7 +2,7 @@
 - title : FsReveal 
 - description : Introduction to FsReveal
 - author : Karlkim Suwanmongkol
-- theme : Sky
+- theme : night
 - transition : default
 
 ***

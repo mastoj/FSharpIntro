@@ -1,6 +1,6 @@
 @font-face {
     font-family: Raleway;
-    src: url(https://fonts.googleapis.com/css?family=Raleway);
+    src: url(href="https://fonts.googleapis.com/css?family=Lusitana|Raleway");
 }
 
 body,
@@ -13,7 +13,7 @@ body,
     color: #BEEE62;
 }
 
-.reveal .backgrounds {
+.reveal .backgrounds, .reveal .progress, body {
     background-color: #36393B;
 }
 
