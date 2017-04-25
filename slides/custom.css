@@ -1,12 +1,30 @@
 @font-face {
     font-family: Raleway;
-    src: url(href="https://fonts.googleapis.com/css?family=Lusitana|Raleway");
+    src: url(href="https://fonts.googleapis.com/css?family=Sentinel|Lato|Lusitana|Raleway");
 }
 
-body,
+/*
+#36393B
+#3C6E71
+#70AE6E
+#BEEE62
+#F4743B
+*/
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+body .reveal {
+    font-family: 'Lato', sans-serif;
+    color: #dbdbde;
+}
+
 .reveal,
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-    font-family: 'Raleway', sans-serif;
+    color: #F4743B;
+    font-weight: bolder;
+    font-family: 'Sentinel', serif;
 }
 
 .reveal a {
@@ -14,7 +32,7 @@ body,
 }
 
 .reveal .backgrounds, .reveal .progress, body {
-    background-color: #36393B;
+    background-color: #000000;
 }
 
 .reveal .controls .navigate-right, .reveal .controls .navigate-right.enabled {
@@ -46,30 +64,31 @@ body,
 }
 
 .reveal .slides ul {
-    list-style-type: none;
     margin: 0px;
 }
 .reveal .slides li {
-    line-height: 1.6em;
+    line-height: 1.2em;
+    margin-bottom: 0.4em;
+    margin-left: 1.5em;
 }
 
 .reveal .grid {
 
 }
 
-.reveal .columns .col-1-2 {
+.reveal .grid .col-1-2 {
     width: 50%;
 }
-.reveal .columns .col-2-3 {
+.reveal .grid .col-2-3 {
     width: 66.66%;
 }
-.reveal .columns .col-1-3 {
+.reveal .grid .col-1-3 {
     width: 33.33%;
 }
-.reveal .columns .col-1-4 {
+.reveal .grid .col-1-4 {
     width: 25%;
 }
-.reveal .columns .col-3-4 {
+.reveal .grid .col-3-4 {
     width: 75%;
 }
 
@@ -94,4 +113,37 @@ body,
 }
 [class*='col-']:last-of-type {
   padding-right: 0;
+}
+
+.reveal .intro-slide {
+    color: #3C6E71;
+    margin-top: 4em;
+    text-align: left;
+}
+.reveal .intro-slide h1, .reveal .intro-slide h2 {
+    color: #70AE6E;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+    font-size: 3.4em;
+}
+
+.reveal .intro-slide h2 {
+    font-family: 'Sentinel', serif;
+    color: #F4743B;
+    font-size: 1.5em;
+}
+
+.reveal .intro-slide .author {
+    color: #70AE6E;
+    margin-top: 8em;
+    text-align: right;
+}
+
+.reveal strong {
+    color: #F4743B;
+}
+
+.reveal .content {
+    widht: 100%;
+    text-align: left;
 }
