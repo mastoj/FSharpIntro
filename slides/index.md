@@ -28,8 +28,8 @@
 * Introduction to exercises
 * Module 1 - Modelling with types, and get used to the tooling
 * Module 2 - Functions, operators, pattern matching, option and little bit of lists
-* Module 3 - More lists, maps
-* Module 4 - Basic OO
+* Module 3 - More options, lists
+* Module 4 - Maps and basic OO
 * Module 5 - Composistion
 
 </div>
@@ -263,6 +263,9 @@ When assigning a variable a value, you <strong>bind</strong> that variable to th
         }
     tomas = tomas2 // true, because of structural comparison
                    // and = is equal and not assignment
+    // Create new record based on old one
+    let tomasInOneYear = {tomas with Age = tomas.Age + 1}
+    tomas = tomasInOneYear // false
 
 * Tuples
 
@@ -718,7 +721,95 @@ You can also attach functions to types
 
 # Module 3
 
-## More lists, maps
+## More options, lists
+
+</div>
+
+---
+
+## Options level 2
+
+<div class="content">
+
+`Option.map` "lifts" a regular function a function that handles option
+
+    let add5 x = 5 + x
+    let maybeAdd5 = Option.map add5
+    maybeAdd5 None          // None
+    maybeAdd5 (Some 10)     // Some 15
+
+`Option.bind` "lifts" a function that does not take an `Option` as input but returns it to a function that only deals with `Option` types
+
+    let safeDiv10 y = if y = 0 then None else Some (10/y)
+    let optSafeDiv10 = Option.bind safeDiv10
+    optSafeDiv10 None       // None
+    optSafeDiv10 (Some 2)   // Some 5
+
+Available functions are in the `Option` namespace, use Visual Studio to see what is available.
+
+</div>
+
+---
+
+## Lists level 2
+
+<div class="content">
+
+Most of the functions in the `List` module are also available in the `Seq` or `Array` module. Some of the `List` functions and their `LINQ` counterpart
+
+<table>
+    <tr>
+        <th> F# </th>
+        <th> C# </th>
+    </tr>
+    <tr>
+        <td>List.filter</td>
+        <td>.Where</td>
+    </tr>
+    <tr>
+        <td>List.map</td>
+        <td>.Select</td>
+    </tr>
+    <tr>
+        <td>List.fold</td>
+        <td>.Aggregate</td>
+    </tr>
+    <tr>
+        <td>List.find</td>
+        <td>.First</td>
+    </tr>
+    <tr>
+        <td>List.tryFind</td>
+        <td>.FirstOrDefault</td>
+    </tr>
+    <tr>
+        <td>List.collect</td>
+        <td>.SelectMany</td>
+    </tr>
+    <tr>
+        <td>List.exist</td>
+        <td>.Any</td>
+    </tr>
+</table>
+
+</div>
+
+---
+
+## List functions examples
+
+<div class="content">
+
+    let numbers = [ 1 .. 10 ]
+    let evenNumbers = numbers |> List.filter (fun x -> x % 2 = 0)
+    let sum = numbers |> List.fold (fun x y -> x + y) 0
+    let double = numbers |> List.map ((*) 2)
+    let doubleSum = 
+        numbers
+        |> List.map ((*) 2)
+        |> List.fold (+) 0
+
+Check the `List` module for more functions.
 
 </div>
 
@@ -730,13 +821,84 @@ You can also attach functions to types
 
 </div>
 
+---
+
+## Goal
+
+<div class="content">
+
+* Implement the domain logic for our ticketing system
+
+</div>
+
+---
+
+## Exercise 3.1 - Conversion functions 
+
+<div class="content">
+
+* Comment out one test at a time from the `ConversionTests` module in `FunctionsTests.fs`
+* Add a F# source file named `Functions.fs` in the `FSharpIntro` project below `Types.fs` (right click `Types.fs` and choose `Add below -> New Item...`)
+* Add `open System` and `open Types` belove the top module definition
+* Add a sub module `Conversion` in the new file
+
+
+    module Conversion =
+
+* Add the implementation that passes the test to this module, note that the functions need to be indented under this module
+* (Hint on next page)
+
+</div>
+
+---
+
+## Exercise 3.1 - Hint
+
+<div class="content">
+
+Implementation of the first function: 
+
+    let priceToPoints (price: float<SEK>)= price * 1.<Point/SEK>
+
+</div>
+
+---
+
+## Exercise 3.2 - Customer functions
+
+<div class="content">
+
+* Copy the file [Lists.fs](https://github.com/mastoj/FSharpIntro/blob/done/src/FSharpIntro/List.fs) and add it over `Types.fs`
+* Add a new module in the `Functions.fs` file named `Customer`
+
+
+    module Customer =
+
+* Comment out one test at a time and make it pass
+* When implementing `calculatePoints` you can use the `takeXOrAll` function in `Lists.fs`
+
+</div>
+
+---
+
+## Exercise 3.3 - Ticket functions
+
+<div class="content">
+
+* Add a new module in the `Functions.fs` file named `Ticket
+
+
+    module Ticket = 
+
+* Comment out one test at a time and make it pass
+
 ***
 
 <div class="intro-slide">
 
 # Module 4
 
-## Basic OO
+## Maps and basic OO
 
 </div>
 
