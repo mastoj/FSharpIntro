@@ -27,7 +27,7 @@
 * A brief introduction to what F# is
 * Introduction to exercises
 * Module 1 - Modelling with types, and get used to the tooling
-* Module 2 - Pattern matching, functions, operators, option and little bit of lists
+* Module 2 - Functions, operators, pattern matching, option and little bit of lists
 * Module 3 - More lists, maps
 * Module 4 - Basic OO
 * Module 5 - Composistion
@@ -58,7 +58,7 @@
 
 ## <strong>Concise</strong>
 
-* Better typing allows for less <strong>noise</strong>
+* Better type system allows for less <strong>noise</strong>
 
 ---
 
@@ -97,7 +97,7 @@
 
 * 5 different modules
 * Each module focus on different topics (but might borrow from each other)
-* Theory going through each module
+* Theory between each set of exercises
 * Exercises that covers most of the theory
 
 </div>
@@ -210,6 +210,20 @@ Everything in F# is an expression
 
 ---
 
+## Bindings
+
+<div class="content">
+
+When assigning a variable a value, you <strong>bind</strong> that variable to the value. The value can be a function or an actual value
+
+    let x = 5                   // bind the value 5 to the variable x
+    let add = fun x y -> x + y  // bind the function x + y to add
+    x = x + 1                   // false, here it is equal and not bind
+
+</div>
+
+---
+
 ## Types 1
 
 <div class="content">
@@ -290,20 +304,24 @@ Everything in F# is an expression
 
 ## Gotchas
 
+<div class="content">
+
 Now when you've seen some code it is time for some gotchas:
 
-* Order matter
-* Structure matter (F# uses signficant space)
-* F# types uses structural equality as default
-* F# types are immutable by default
-* F# types are not nullable by default
-* F# has good type inference (but sometimes you need to help the compiler)
+* <strong>Order matter</strong>
+* <strong>Structure matter</strong> (F# uses signficant space)
+* F# types uses <strong>structural equality</strong> as default
+* F# types are <strong>immutable</strong> by default
+* F# types are <strong>not nullable</strong> by default
+* F# has good <strong>type inference</strong> (but sometimes you need to help the compiler)
 
 
     //         in type1   in type2    return type
     //            |          |           |
     //            V          V           V
     let myFun (x:string) (y:string) : string = x + y
+
+</div>
 
 ***
 
@@ -331,6 +349,7 @@ Now when you've seen some code it is time for some gotchas:
 
 <div class="content">
 
+* Clone the github repo: https://github.com/mastoj/FSharpIntro
 * Open branch module1
 * Open the solution file in the `src` folder
 * Open `script.fsx`
@@ -396,9 +415,9 @@ Now when you've seen some code it is time for some gotchas:
 * Type alias named `DestinationName` of type `string`
 * Type alias named `DestinationId` of type `int`
 * Discriminated union type `TicketClass` with three cases
-    * `Economy` with no field
-    * `Business` with no field
-    * `FirstClass` with no field
+    - `Economy` with no field
+    - `Business` with no field
+    - `FirstClass` with no field
 
 </div>
 
@@ -409,15 +428,13 @@ Now when you've seen some code it is time for some gotchas:
 <div class="content">
 
 * Record type `Ticket` that has the following properties
-    * `CustomerId` of type `CustomerId`
-    * `Price` of type `Price`
-    * `TicketClass` of type `TicketClass`
-    * `From` of type `Destination`
-    * `To` of type `Destination`
+    - `CustomerId` of type `CustomerId`
+    - `Price` of type `Price`
+    - `TicketClass` of type `TicketClass`
+    - `From` of type `Destination`
+    - `To` of type `Destination`
 
 </div>
-
----
 
 ***
 
@@ -425,15 +442,273 @@ Now when you've seen some code it is time for some gotchas:
 
 # Module 2
 
-## Pattern matching, functions, operators, option and little bit of lists
+## Functions, operators, pattern matching, option and little bit of lists
 
 </div>
+
+---
+
+## Functions
+
+<div class="content">
+
+Functions in F# are curried, that is, they only has <strong>1</strong> argument!
+
+    let add x y = x + y
+    let add x = fun y -> x + y
+
+</div>
+
+---
+
+## Partial applications
+
+<div class="content">
+
+When you apply a function partially you get a new function back
+
+    let add x y = x + y
+    let add5 y = add 5 y
+    let add5 = add 5        // fun y -> 5 + y
+
+</div>
+
+---
+
+## Higher order functions
+
+<div class="content">
+
+You can both use functions as argument or return values of functions
+
+* Returning a function
+
+
+    let add x y = x + y
+    let add5 = add 5
+
+* Function as argument
+
+
+    let add x y = x + y
+    let add5 = add 5
+    let addWith adder x = adder x
+    addWith add5 5                  // 10
+
+</div>
+
+---
+
+## Operators
+
+<div class="content">
+
+Functional operators are common in F#, and they are not that complicated as they seems. Two of the most common ones are the pipeline operator and function composition. You can easily define your own as well.
+
+* `|>` pipeline operator
+
+
+    (|>)    // ('a -> ('a -> 'b) -> 'b)
+
+    let (|>>>) = fun x f -> f x
+
+* `>>` function composition
+
+
+    (>>)     // (('a -> 'b) -> ('b -> 'c) -> 'a -> 'c)
+
+    let (>>>>) = fun f1 f2 a = f2 (f1 a)
+
+</div>
+
+---
+
+## Options
+
+<div class="content">
+
+Built in type to use instead of null --> force explicit handling of missing values and a semantic meaning. It is implemented as a generic discriminated union.
+
+    type Option<'T> = 
+        | None
+        | Some of 'T
+
+</div>
+
+---
+
+## Pattern matching
+
+<div class="content">
+
+Can be used with any F# types:
+
+    // Pattern match on tuple
+    let myTuple = "tomas"*35
+    let (name, age) = myTuple
+
+    // Pattern match on discriminated union
+    let maybeAdd x maybeY = 
+        match maybeY with
+        | None -> x
+        | Some y -> x + y
+
+    let isSome s = 
+        match s with
+        | None -> false
+        | Some _ -> true // _ don't care match
+
+</div>
+
+---
+
+## Pattern match (cont.)
+
+<div class="content">
+
+    // Pattern match on record type
+    type Person = {Name: string; Age: int}
+    let tomas = {Name = "tomas"; Age = 35}
+    let {Name = name; Age = age} = tomas
+
+</div>
+
+---
+
+## Lists, arrays and sequences
+
+<div class="content">
+
+* Lists 
+    - immutable native F# lists
+
+
+    let intList = [1;2;3]
+    let intList = [1..3]
+
+* Arrays
+    - mutable arrays, more memory efficient
+
+
+    let intList = [|1;2;3|]
+    let intList = [|1..3|]
+
+* Sequences (`IEnumerable`)
+    - lazy
+    - can be infinite
+
+
+    let intSeq = seq { yield 1; yield 2}
+
+</div>
+
+---
+
+## Pattern match on lists
+
+<div class="content">
+
+Of course you can pattern match on lists as well.
+
+
+    let rec sumAll xs = 
+        match xs with
+        | [] -> 0                       // base case
+        | [x::xs'] -> x + sumAll xs'    // recursive case
+
+    // With tail recursion to avoid stack overflow
+    let sumAll2 xs = 
+        let rec inner xs acc = 
+            match xs with
+            | [] -> acc
+            | [x::xs'] -> inner xs' (acc + x)
+        inner xs 0
+
+</div>
+
+---
+
+## Member functions
+
+<div class="content">
+
+You can also attach functions to types
+
+    type Person =
+        {
+            Name: string
+            Age: int
+        }
+        with 
+            static member create name age = {Name = name; Age = age}
+            member this.isAdult() = this.Age > 18
+
+    let tomas = {Name = "tomas"; Age = 35}
+    tomas.isAdult() // true
 
 ***
 
 <div class="intro-slide">
 
 # <strong>Exercises</strong> - Module 2
+
+</div>
+
+---
+
+## Goal
+
+<div class="content">
+
+* Apply some structure to the project
+* Basic functionality
+
+</div>
+
+---
+
+## Exercise 2.1 - getting started
+
+<div class="content">
+
+* If you finished `module1` you can continue with the code
+* If you did not finish `module1`, checkout `module2`
+* Copy all the types from `Script.fsx` to `Types.fsx`
+
+</div>
+
+---
+
+## Exercise 2.2 - Customer functions
+
+<div class="content">
+
+* Open the test project
+* Comment out the first test in the `CustomerTests` module inside `TypesTest.fs`
+* Implement a static `create` function on the `Customer` type
+* Comment out the last two and implement the instance function `isGoldMember()`
+
+</div>
+
+---
+
+## Exercise 2.3 - Destination functions
+
+<div class="content">
+
+* Comment out the first test in the `DestinationTests` module inside `TypesTest.fs`
+* Implement a static `create` function on the `Destination` type
+
+</div>
+
+---
+
+## Exercise 2.4 - Ticket functions
+
+<div class="content">
+
+* Comment out the first test in the `TicketTests` module inside `TypesTest.fs`
+* Implement a static `create` function on the `Ticket` type
 
 </div>
 
