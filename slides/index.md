@@ -1222,11 +1222,223 @@ Run with ´Alt+Enter` in Visual Studio.
 
 </div>
 
+--- 
+
+## Composing applications
+
+<div class="content">
+
+When composing components it is done in mostly to different places:
+
+* Compose types
+* Compose functions
+
+</div>
+
+---
+
+## Composing types
+
+<div class="content">
+
+Can be used to define external interface from an application
+
+    type App =
+        {
+            getCustomers: unit -> Customer list
+            addCustomer: CustomerName -> Customer option
+            reserveTicket: ReserveTicketRequest -> (Customer * Ticket) option
+            getTickets: CustomerId -> Ticket list
+        }
+
+</div>
+
+---
+
+## Composing functions
+
+<div class="content">
+
+Some times the function you want to expose does not match in type and/or structure with the domain function, or you need to combine multiple functions together.
+
+    let createTicket request customer = 
+        let ticket = Domain.createTicket customer request // Wrapping domain function
+        match ticket with
+        | None -> None
+        | Some ticket -> Some (customer, ticket) // Creating new return value
+
+    let reserveTicket ticketRequest : (Customer, Ticket) option =
+        getCustomer customerId  // returns Customer option
+        Option.bind (createTicket ticketRequest) // Return option
+        ...
+
+    let app = {
+        reserveTicket: reserveTicket
+    }
+
+</div>
+
 ***
 
 <div class="intro-slide">
 
 # <strong>Exercises</strong> - Module 5
+
+</div>
+
+---
+
+## Goal
+
+<div class="content">
+
+* Gluing the pieces together
+
+</div>
+
+---
+
+## Exercise 5.1 - Create Application types
+
+<div class="content">
+
+* Add an `Application.fs` file below `Services.fs`
+* Create a record type `ReserveTicketRequest` with the properties
+    - `CustomerId: CustomerId`
+    - `From: DestinationId`
+    - `To: DestinationId`
+    - `TicketClass: TicketClass`
+* Create another record type `App` with the properties
+    - `getCustomers: unit -> Customer list`
+    - `addCustomer: CustomerName -> Customer option`
+    - `reserveTicket: ReserveTicketRequest -> (Customer * Ticket) option`
+    - `getTickets: CustomerId -> Ticket list`
+
+</div>
+
+---
+
+## Exercise 5.2 - Add function to create the application
+
+<div class="content">
+
+* Add a `createApp` function in the bottom of the file (and keep it there always)
+* `createApp` should have three arguments
+    - `customerService: CustomerService`
+    - `ticketService: TicketService`
+    - `destinationService: TestinationService`
+* `createApp` should return a `App`
+
+
+    {
+        getCustomers = customerService.GetCustomers
+        addCustomer = customerService.AddCustomer
+        reserveTicket = 
+            (reserveTicket customerService ticketService destinationService)
+        getTickets = ticketService.GetTicketsForCustomer
+    }
+
+* Implement a dummy function for `reserveTicket`
+* Try out the `createApp` with the script file
+
+</div>
+---
+
+## Exercise 5.3 - Implement reserveTicket
+
+<div class="content">
+
+* Add the `reserveTicket` function above `createApp`
+
+
+    let reserveTicket 
+        (customerService: CustomerService) 
+        (ticketService: TicketService) 
+        (destinationService: DestinationService) reserveTicketRequest = 
+
+
+* Implement the following functions in the body of `reserveTicket`, some functions might shadow functions in `Functions.fs`:
+
+
+    let tryUpgradeTicketForCustomer (customer, ticket) 
+        : (Customer * Ticket) option =
+
+    let createTicket 
+        reserveTicketRequest
+        ((customer: Customer), fromDestination, toDestination) 
+        : (Customer * Ticket) option = 
+
+</div>
+
+--- 
+
+## Exercise 5.3 - Implement reserveTicket (cont.)
+
+<div class="content">
+
+    let getFromDestionation reserveTicketRequest customer 
+        : (Customer * Destination) option = 
+
+    let getToDestination reserveTicketRequest (customer, from) 
+        : (Customer * Destination * Destination) option = 
+
+    let updateCustomer ((customer:Customer), ticket)
+        : (Customer * Ticket) option = 
+
+    let saveTicket (customer, ticket) 
+        : (Customer * Ticket) option = 
+
+    let saveCustomer (customer, ticket) 
+        : (Customer * Ticket) option = 
+
+</div>
+
+---
+
+## Exercise 5.4 - Bind the helper functions together
+
+<div class="content">
+
+* Use `Option.bind` and do the following:
+    1. get customer
+    2. get from destination
+    3. get to destination
+    4. create ticket
+    5. try upgrade ticket for customer
+    6. save ticket
+    7. update customer
+    8. save customer
+
+* Hint on next slide to get you started
+
+</div>
+
+---
+
+## Exercise 5.4 - Hint
+
+<div class="content">
+
+    let reserveTicket ... = 
+
+        // ... helper functions
+
+        customerService.GetCustomer reserveTicketRequest.CustomerId
+        Option.bind (getFromDestionation reserveTicketRequest)
+        // add the rest here
+
+</div>
+
+--- 
+
+## Exercise 5.5 - Create the console application
+
+<div class="content">
+
+* This is mainly boiler plate code so replace `Program.fs` with the one [here](https://github.com/mastoj/FSharpIntro/blob/done/src/FSharpIntro/Program.fs).
+* This is the first function with recursion, the `rec` keyword is used
+* Try to understand the code (reading code is important)
+* Start the application and play around with it
 
 </div>
 
