@@ -218,7 +218,7 @@ When assigning a variable a value, you <strong>bind</strong> that variable to th
 
     let x = 5                   // bind the value 5 to the variable x
     let add = fun x y -> x + y  // bind the function x + y to add
-    x = x + 1                   // false, here it is equal and not bind
+    x = x + 1                   // false, here it is a pattern match and not bind
 
 </div>
 
@@ -402,8 +402,8 @@ Now when you've seen some code it is time for some gotchas:
 * Type alias named `DestinationName` of type `string`
 * Type alias named `DestinationId` of type `int`
 * Record type `Destination` that has the following properties
-    * `Id` of type `DestinationId`
-    * `Name` of type `DestinationName`
+    - `Id` of type `DestinationId`
+    - `Name` of type `DestinationName`
 
 </div>
 
@@ -771,6 +771,10 @@ Most of the functions in the `List` module are also available in the `Seq` or `A
         <td>.Select</td>
     </tr>
     <tr>
+        <td>List.mapi</td>
+        <td>.Select (with the index as well)</td>
+    </tr>
+    <tr>
         <td>List.fold</td>
         <td>.Aggregate</td>
     </tr>
@@ -902,11 +906,309 @@ Implementation of the first function:
 
 </div>
 
+---
+
+## Maps
+
+<div class="content">
+
+A `Map` can be thought of as a immutable `Dictionary`
+
+</div>
+
+---
+
+## Maps - key functions
+
+<div class="content">
+
+    // Map.ofList
+    [1,2; 2,1] |> Map.ofList // map [(1, 2); (2, 1)]
+    
+    // Map.toList
+    [1,2; 2,1] |> Map.ofList |> Map.toList // [(1, 2); (2, 1)]
+
+    // Map.add
+    [1,2; 2,1] |> Map.ofList |> Map.add 3 4 // map [(1, 2); (2, 1); (3, 4)]
+
+    // Map.find
+    [1,2; 2,1] |> Map.ofList |> Map.find 1 // 2
+
+    // Map.tryFind
+    [1,2; 2,1] |> Map.ofList |> Map.tryFind 1 // Some 2
+
+Use `Map.find` if you know that the value exists, otherwise use `tryFind` and deal with the missing key.
+
+</div>
+
+---
+
+## Mutability in F#
+
+<div class="content">
+
+* In F# you want to avoid mutability, but some times it makes sense to bypass the default rules
+* You can create mutable variables by using the keyword `mutable` and the `<-` operator to "re-bind" a variables.
+* Try to do it at the ages or keep it local
+
+</div>
+
+---
+
+## Mutability examples
+
+<div class="content">
+
+    let mutable x = 5
+    x <- 6
+    x = 5 // false
+    x = 6 // true
+
+    let mutable list = [1; 2]
+    list <- 3::list
+    list = [1; 2]       // false
+    list = [3; 1; 2]    // true
+
+</div>
+
+---
+
+## Creating classes
+
+<div class="content">
+
+The syntax is similar to records but you take arguments after the type name.
+
+    type Person(name, age) = 
+        let isAdult = age > 18
+        do printfn "%s is adult: %A" name isAdult
+        member this.Name = name // get & private set of Name
+        member this.Age = age   // get & private set of age
+        member this.IsAdult = isAdult
+    
+    let tomas = Person("tomas", 35)
+    let tomas = new Person("tomas", 35)
+
+</div>
+
+---
+
+## Interfaces
+
+<div class="content">
+
+An interface is a type with just abstract members.
+
+    type Adder = 
+        abstract member Add: int -> int -> int
+
+    type AdderImpl() = 
+        interface Adder with
+            member this.Add x y = x + y
+
+    let adder = AdderImpl()
+    adder.Add 3 4 // ERROR
+    (adder :> Adder).Add 3 4 // 7 -- (:>) is a type safe cast
+
+</div>
+
+---
+
+### Object expressions
+
+<div class="content">
+
+It is possible to implement an interface in F# without implementing a class. It is done by a so called Object expression.
+
+    type Adder = 
+        abstract member Add: int -> int -> int
+
+    let adder = 
+        { new Adder
+            with member this.Add x y = x + y }
+
+    adder.Add 3 4 // 7, no need to cast since adder is of type Adder
+
+</div>
+
 ***
 
 <div class="intro-slide">
 
 # <strong>Exercises</strong> - Module 4
+
+</div>
+
+---
+
+## Goal
+
+<div class="content">
+
+* Implement in-memory data storage
+* Learn more about lists, maps, OO and mutability
+
+</div>
+
+---
+
+## Exercise 4.1 - Implement the in-memory store for destinations
+
+<div class="content">
+
+* Add the file `Data.fs` below the `Functions.fs` file
+* Comment out one test a time and make it pass
+* Key functions you might want to use
+    - `List.mapi`
+    - `List.collect`
+    - `Map.ofList`
+* There are hints to get you started on the next two slides
+
+</div>
+
+--- 
+
+## Exercise 4.1 - Hints
+
+<div class="content">
+
+Some helper values:
+
+    let private destinationList = 
+        [ "Barcelona"; "Stockholm"; "Oslo" ] 
+        |> List.mapi Destination.create
+    let private distanceList = 
+        [ (0,1,2789.2); (0,2,2141.16); (1,2,530.) ]
+        |> List.collect (fun (index1, index2, distance) -> 
+            let typedDistance = distance |> createDistance
+            [
+                (destinationList.[index1], destinationList.[index2]), typedDistance
+                (destinationList.[index2], destinationList.[index1]), typedDistance
+            ])
+        |> Map.ofList
+
+<div>
+
+---
+
+## Exercise 4.1 - More hints
+
+<div class="content">
+
+
+    let private priceList =
+        [
+            (0,1,700., 1500., 2000.)
+            (0, 2, 600., 1300., 1800.)
+            (1, 2, 400., 700., 1000. ) ]
+        |> List.collect
+            (fun (index1, index2, economyPrice, businessPrice, firstClassPrice) ->
+                let [
+                        typedEconomyPrice
+                        typedBusinessPrice
+                        typedFirstClassPrice ] =
+                    [economyPrice; businessPrice; firstClassPrice]
+                    |> List.map createPrice
+                let prices = 
+                    (typedEconomyPrice, typedBusinessPrice, typedFirstClassPrice
+                [
+                    (destinationList.[index1], destinationList.[index2]), prices
+                    (destinationList.[index2], destinationList.[index1]), prices
+                ])
+        |> Map.ofList
+
+</div>
+
+---
+
+## Exercise 4.2 - Implement the in-memory store for tickets
+
+<div class="content">
+
+* Comment out the `TicketsTests` and implement the functions it cover
+* (This is probably not the best example of a good unit test)
+
+
+</div>
+
+---
+
+## Exercise 4.3 - Implement the in-memory store for Customers
+
+<div class="content">
+
+* Comment out the tests in `CustomerTests` class one at a time and make it pass
+* Note that we are using a `class` here so we can initialize the tests in the constructor block. That is the code after `do`.
+
+</div>
+
+---
+
+## Exercise 4.4 - Implement DestinationService
+
+<div class="content">
+
+* Create a new file below `Data.fs` and name it `Services.fs`
+* Add the class `DestinationService` to the file
+
+
+    type DestinationService() = 
+
+* Add member the following member functions that just call the functions in the `Data` module:
+
+
+    member this.GetDestinations = // add correct function call here
+    member this.GetDestination destinationId = // , here
+    member this GetDistance ((destination1, destination2) as key) = // , here
+    member this.GetPrice ((destination1, destination2) as key, ticketClass) // and here
+
+</div>
+
+---
+
+## Exercise 4.5 - Implement TicketService
+
+<div class="content">
+
+* Add the class `TicketService`
+* Add the members functions `GetTicketsForCustomer` and `SaveTicket`
+
+</div>
+
+---
+
+## Exercise 4.6 - Implement CustomerService
+
+<div class="content">
+
+* Add the class `CustomerService`
+* Add the member functions `GetCustomer`, `GetCustomers`, `AddCustomer` and `UpdateCustomer`
+
+</div>
+
+---
+
+## Exercise 4.7 - Experiment with the services
+
+<div class="content">
+
+This time we will test that the code work through the `FSI`. Open up the file `Script1.fsx` and paste in the following to get you started:
+
+
+    #load "Lists.fs"
+    #load "Types.fs"
+    #load "Functions.fs"
+    #load "Data.fs"
+    #load "Services.fs"
+
+    open Services
+
+    let customerService = new CustomerService()
+    customerService.GetCustomers()
+    customerService.AddCustomer "Tomas"
+    customerService.GetCustomer 0
+
+Run with ´Alt+Enter` in Visual Studio.
 
 </div>
 
@@ -929,183 +1231,4 @@ Implementation of the first function:
 </div>
 
 ***
-
-
-
-
-
-
-
-
-***
-
-<div class="columns">
-
-<div class="col-1-2">
-
-- Generates [reveal.js](http://lab.hakim.se/reveal-js/#/) presentation from [markdown](http://daringfireball.net/projects/markdown/)
-- Utilizes [FSharp.Formatting](https://github.com/tpetricek/FSharp.Formatting) for markdown parsing
-- Get it from [http://fsprojects.github.io/FsReveal/](http://fsprojects.github.io/FsReveal/)
-
-</div>
-
-<div class="col-1-4">
-
-![FsReveal](images/logo.png)
-
-</div>
-
-<div class="col-1-4" style="background-color: red;">
-
-do I have this in a block as
-
-</div>
-
-***
-
-### Reveal.js
-
-- A framework for easily creating beautiful presentations using HTML.
-
-
-> **Atwood's Law**: any application that can be written in JavaScript, will eventually be written in JavaScript.
-
-***
-
-### FSharp.Formatting
-
-- F# tools for generating documentation (Markdown processor and F# code formatter).
-- It parses markdown and F# script file and generates HTML or PDF.
-- Code syntax highlighting support.
-- It also evaluates your F# code and produce tooltips.
-
-***
-
-### Syntax Highlighting
-
-#### F# (with tooltips)
-
-    let a = 5
-    let factorial x = [1..x] |> List.reduce (*)
-    let c = factorial a
-
----
-
-#### C#
-
-    [lang=cs]
-    using System;
-
-    class Program
-    {
-        static void Main()
-        {
-            Console.WriteLine("Hello, world!");
-        }
-    }
-
----
-
-#### JavaScript
-
-    [lang=js]
-    function copyWithEvaluation(iElem, elem) {
-        return function (obj) {
-            var newObj = {};
-            for (var p in obj) {
-                var v = obj[p];
-                if (typeof v === "function") {
-                    v = v(iElem, elem);
-                }
-                newObj[p] = v;
-            }
-            if (!newObj.exactTiming) {
-                newObj.delay += exports._libraryDelay;
-            }
-            return newObj;
-        };
-    }
-
-
----
-
-#### Haskell
- 
-    [lang=haskell]
-    recur_count k = 1 : 1 : 
-        zipWith recurAdd (recur_count k) (tail (recur_count k))
-            where recurAdd x y = k * x + y
-
-    main = do
-      argv <- getArgs
-      inputFile <- openFile (head argv) ReadMode
-      line <- hGetLine inputFile
-      let [n,k] = map read (words line)
-      printf "%d\n" ((recur_count k) !! (n-1))
-
-*code from [NashFP/rosalind](https://github.com/NashFP/rosalind/blob/master/mark_wutka%2Bhaskell/FIB/fib_ziplist.hs)*
-
----
-
-### SQL
-
-    [lang=sql]
-    select *
-    from
-    (select 1 as Id union all select 2 union all select 3) as X
-    where Id in (@Ids1, @Ids2, @Ids3)
-
-*sql from [Dapper](https://code.google.com/p/dapper-dot-net/)*
-
----
-
-### Paket
-
-    [lang=paket]
-    source https://nuget.org/api/v2
-
-    nuget Castle.Windsor-log4net >= 3.2
-    nuget NUnit
-    
-    github forki/FsUnit FsUnit.fs
-      
----
-
-### C/AL
-
-    [lang=cal]
-    PROCEDURE FizzBuzz(n : Integer) r_Text : Text[1024];
-    VAR
-      l_Text : Text[1024];
-    BEGIN
-      r_Text := '';
-      l_Text := FORMAT(n);
-
-      IF (n MOD 3 = 0) OR (STRPOS(l_Text,'3') > 0) THEN
-        r_Text := 'Fizz';
-      IF (n MOD 5 = 0) OR (STRPOS(l_Text,'5') > 0) THEN
-        r_Text := r_Text + 'Buzz';
-      IF r_Text = '' THEN
-        r_Text := l_Text;
-    END;
-
-***
-
-**Bayes' Rule in LaTeX**
-
-$ \Pr(A|B)=\frac{\Pr(B|A)\Pr(A)}{\Pr(B|A)\Pr(A)+\Pr(B|\neg A)\Pr(\neg A)} $
-
-***
-
-### The Reality of a Developer's Life 
-
-**When I show my boss that I've fixed a bug:**
-  
-![When I show my boss that I've fixed a bug](http://www.topito.com/wp-content/uploads/2013/01/code-07.gif)
-  
-**When your regular expression returns what you expect:**
-  
-![When your regular expression returns what you expect](http://www.topito.com/wp-content/uploads/2013/01/code-03.gif)
-  
-*from [The Reality of a Developer's Life - in GIFs, Of Course](http://server.dzone.com/articles/reality-developers-life-gifs)*
 
