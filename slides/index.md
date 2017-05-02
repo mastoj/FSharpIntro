@@ -216,9 +216,14 @@ Everything in F# is an expression
 
 When assigning a variable a value, you <strong>bind</strong> that variable to the value. The value can be a function or an actual value
 
-    let x = 5                   // bind the value 5 to the variable x
-    let add = fun x y -> x + y  // bind the function x + y to add
-    x = x + 1                   // false, here it is a pattern match and not bind
+    // bind the value 5 to the variable x
+    let x = 5
+
+    // bind the function x + y to add
+    let add = fun x y -> x + y
+
+    // false, here it is a pattern match and not bind
+    x = x + 1
 
 </div>
 
@@ -1208,7 +1213,7 @@ This time we will test that the code work through the `FSI`. Open up the file `S
     customerService.AddCustomer "Tomas"
     customerService.GetCustomer 0
 
-Run with ´Alt+Enter` in Visual Studio.
+Run with `Alt+Enter` in Visual Studio.
 
 </div>
 
@@ -1327,6 +1332,15 @@ Some times the function you want to expose does not match in type and/or structu
     - `customerService: CustomerService`
     - `ticketService: TicketService`
     - `destinationService: TestinationService`
+
+</div>
+
+---
+
+## Exercise 5.2 (cont.)
+
+<div class="content">
+
 * `createApp` should return a `App`
 
 
@@ -1342,6 +1356,7 @@ Some times the function you want to expose does not match in type and/or structu
 * Try out the `createApp` with the script file
 
 </div>
+
 ---
 
 ## Exercise 5.3 - Implement reserveTicket

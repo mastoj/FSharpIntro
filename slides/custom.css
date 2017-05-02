@@ -1,8 +1,51 @@
+/* greek-ext */
 @font-face {
-    font-family: Raleway;
-    src: url(href="https://fonts.googleapis.com/css?family=Sentinel|Lato|Lusitana|Raleway");
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cardo'), local('Cardo-Regular'), url(https://fonts.gstatic.com/s/cardo/v8/IG4DpJdcfaM4xln_vfh5jQ.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
 }
-
+/* greek */
+@font-face {
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cardo'), local('Cardo-Regular'), url(https://fonts.gstatic.com/s/cardo/v8/nlGT-2rsvmEdRn3zJayfCg.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cardo'), local('Cardo-Regular'), url(https://fonts.gstatic.com/s/cardo/v8/20cHEn_N7ful33K3E0HU-A.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cardo'), local('Cardo-Regular'), url(https://fonts.gstatic.com/s/cardo/v8/XRgRvJ9BvurZhQZpuWMwgw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v13/UyBMtLsHKBKXelqf4x7VRQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v13/1YwB1sO8YE1Lyjf12WNiUA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
 /*
 #36393B
 #3C6E71
@@ -24,7 +67,7 @@ body .reveal {
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
     color: #F4743B;
     font-weight: bolder;
-    font-family: 'Sentinel', serif;
+    font-family: 'Cardo', serif;
 }
 
 .reveal a {
@@ -128,7 +171,7 @@ body .reveal {
 }
 
 .reveal .intro-slide h2 {
-    font-family: 'Sentinel', serif;
+    font-family: 'Cardo', serif;
     color: #F4743B;
     font-size: 1.5em;
 }
@@ -146,4 +189,10 @@ body .reveal {
 .reveal .content {
     widht: 100%;
     text-align: left;
+}
+
+.reveal code {
+    background-color: #313d40;
+    color: #F4743B;
+    font-weight: normal;
 }
