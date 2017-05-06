@@ -46,7 +46,7 @@
 
 ## Open source <strong>functional-first</strong> programming language
 
-* Functional code is easier to write than object oriented code
+* Functional-first -> easier to write functional code
 
 ---
 
@@ -58,7 +58,7 @@
 
 ## <strong>Concise</strong>
 
-* Better type system allows for less <strong>noise</strong>
+* Better type system and less syntax allows for less <strong>noise</strong>
 
 ---
 
@@ -292,6 +292,8 @@ When assigning a variable a value, you <strong>bind</strong> that variable to th
     type Shape = 
         | Rectangle of int * int
         | Circle of Radius:int
+
+    let shapes = [ Rectangle(1,69); Circle(69) ]
 
 * Function types (finally some functions)
 
@@ -606,7 +608,8 @@ Can be used with any F# types:
     - can be infinite
 
 
-    let intSeq = seq { yield 1; yield 2}
+    let intSeq1 = seq { yield 1; yield 2}
+    let intSeq2 = seq { yield! intSeq1; yield 3; yield 4}
 
 </div>
 
@@ -1023,7 +1026,7 @@ An interface is a type with just abstract members.
 
 <div class="content">
 
-It is possible to implement an interface in F# without implementing a class. It is done by a so called Object expression.
+It is possible to implement an interface in F# without implementing a class. It is done by a so called <strong>Object expression</strong>.
 
     type Adder = 
         abstract member Add: int -> int -> int
