@@ -32,6 +32,7 @@
 * Module 4 - Maps and basic OO
 * Module 5 - Composistion
 
+http://mastoj.github.io/FSharpIntro/
 </div>
 
 ***
@@ -66,6 +67,15 @@
 
 * Non-null by default - <strong>fewer unexpected bugs</strong>
 * Immutable - <strong>makes it easier to reason</strong>
+
+***
+
+# Resources
+
+Most of what you need you'll find in this material, but it is good to know some more resources
+
+* https://fsharpforfunandprofit.com/
+* https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/
 
 ***
 
