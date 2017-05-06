@@ -28,6 +28,13 @@ module Option =
         | None -> None
 open Option
 
+let parseTicketClass (tcStr:string) = 
+    match tcStr.ToLower() with
+    | "economy" -> TicketClass.Economy
+    | "first" -> TicketClass.FirstClass
+    | "business" -> TicketClass.Business
+    | _ -> raise (exn ("Invalid ticket class: " + tcStr))
+
 let reserveTicket 
         (customerService: CustomerService) 
         (ticketService: TicketService) 

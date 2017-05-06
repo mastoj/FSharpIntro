@@ -3,15 +3,9 @@ open Services
 open System
 open Data
 open Types
+open Application
 
 let app = Application.createApp (new CustomerService()) (new TicketService()) (new DestinationService())
-
-let parseTicketClass (tcStr:String) = 
-    match tcStr.ToLower() with
-    | "economy" -> TicketClass.Economy
-    | "first" -> TicketClass.FirstClass
-    | "business" -> TicketClass.Business
-    | _ -> raise (exn ("Invalid ticket class: " + tcStr))
 
 [<EntryPoint>]
 let rec main argv =
