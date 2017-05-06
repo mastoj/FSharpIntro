@@ -3,11 +3,20 @@
 open Types
 
 module Destinations = 
+    open FSharp.Data
+    type DestinationSource = CsvProvider<"data/destinations.csv">
+    type DistanceSource = CsvProvider<"data/distances.csv">
+    type PriceSource = CsvProvider<"data/prices.csv">
+
     let private destinationList = 
-        [ "Barcelona"; "Stockholm"; "Oslo" ] 
-        |> List.mapi Destination.create
+        DestinationSource.GetSample().Rows
+        |> Seq.map (fun r -> Destination.create r.Id r.Name)
+        |> Seq.toList
+
     let private distanceList = 
-        [ (0,1,2789.2); (0,2,2141.16); (1,2,530.) ]
+        DistanceSource.GetSample().Rows
+        |> Seq.map (fun r -> (r.FromId, r.ToId, r.Km))
+        |> Seq.toList
         |> List.collect (fun (index1, index2, distance) -> 
             let typedDistance = distance |> createDistance
             [
@@ -17,7 +26,9 @@ module Destinations =
         |> Map.ofList
     
     let private priceList = 
-        [ (0,1,700., 1500., 2000.); (0, 2, 600., 1300., 1800.); (1, 2, 400., 700., 1000. ) ]
+        PriceSource.GetSample().Rows
+        |> Seq.map (fun r -> (r.FromId, r.ToId, r.Economy, r.Business, r.First))
+        |> Seq.toList
         |> List.collect (fun (index1, index2, economyPrice, businessPrice, firstClassPrice) ->
             let [typedEconomyPrice; typedBusinessPrice; typedFirstClassPrice] = 
                 [economyPrice; businessPrice; firstClassPrice] |> List.map createPrice
