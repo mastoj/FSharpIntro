@@ -158,12 +158,17 @@ body .reveal {
   padding-right: 0;
 }
 
-.reveal .intro-slide {
+.reveal .intro-slide, .reveal .ending-slide {
     color: #3C6E71;
     margin-top: 4em;
     text-align: left;
 }
-.reveal .intro-slide h1, .reveal .intro-slide h2 {
+
+.reveal .ending-slide {
+    color: #dbdbde;
+}
+
+.reveal .intro-slide h1, .reveal .intro-ending h1, .reveal .intro-slide h2 {
     color: #70AE6E;
     font-weight: bold;
     font-family: 'Lato', sans-serif;
