@@ -32,8 +32,8 @@
 * Module 4 - Maps and basic OO
 * Module 5 - Composistion
 
-http://mastoj.github.io/FSharpIntro/
 Links:
+
 * Slides: http://mastoj.github.io/FSharpIntro/
 * Code: https://github.com/mastoj/FSharpIntro
 
@@ -63,7 +63,7 @@ Links:
 
 ## <strong>Concise</strong>
 
-* Better type system and less syntax allows for less <strong>noise</strong>
+* Better type system and less syntax allows for <strong>less noise</strong>
 
 ---
 
@@ -1476,3 +1476,17 @@ Some times the function you want to expose does not match in type and/or structu
 
 ***
 
+
+<div class="ending-slide">
+
+# The End
+
+<div class="content">
+
+* For two extra exercises see the branches `wep-api` and `typeprovider`
+
+</div>
+
+</div>
+
+*** 
