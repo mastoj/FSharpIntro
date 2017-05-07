@@ -33,6 +33,10 @@
 * Module 5 - Composistion
 
 http://mastoj.github.io/FSharpIntro/
+Links:
+* Slides: http://mastoj.github.io/FSharpIntro/
+* Code: https://github.com/mastoj/FSharpIntro
+
 </div>
 
 ***
