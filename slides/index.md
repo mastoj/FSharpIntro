@@ -30,7 +30,7 @@
 * Module 2 - Functions, operators, pattern matching, option and little bit of lists
 * Module 3 - More options, lists
 * Module 4 - Maps and basic OO
-* Module 5 - Composistion
+* Module 5 - Composition
 
 Links:
 
@@ -57,7 +57,7 @@ Links:
 
 ## <strong>Declarative</strong> over imperative
 
-* The code focus more on <strong>what</strong> to do, instead of how to do it
+* The code focuses more on <strong>what</strong> to do, instead of how to do it
 
 ---
 
@@ -110,7 +110,7 @@ Most of what you need you'll find in this material, but it is good to know some 
 <div class="content">
 
 * 5 different modules
-* Each module focus on different topics (but might borrow from each other)
+* Each module focuses on different topics (but might borrow from each other)
 * Theory between each set of exercises
 * Exercises that covers most of the theory
 
@@ -332,9 +332,9 @@ When assigning a variable a value, you <strong>bind</strong> that variable to th
 
 Now when you've seen some code it is time for some gotchas:
 
-* <strong>Order matter</strong>
-* <strong>Structure matter</strong> (F# uses signficant space)
-* F# types uses <strong>structural equality</strong> as default
+* <strong>Order matters</strong>
+* <strong>Structure matters</strong> (F# uses signficant space)
+* F# types use <strong>structural equality</strong> by default
 * F# types are <strong>immutable</strong> by default
 * F# types are <strong>not nullable</strong> by default
 * F# has good <strong>type inference</strong> (but sometimes you need to help the compiler)
@@ -476,7 +476,7 @@ Now when you've seen some code it is time for some gotchas:
 
 <div class="content">
 
-Functions in F# are curried, that is, they only has <strong>1</strong> argument!
+Functions in F# are curried, that is, they only have <strong>1</strong> argument!
 
     let add x y = x + y
     let add x = fun y -> x + y
@@ -527,7 +527,7 @@ You can both use functions as argument or return values of functions
 
 <div class="content">
 
-Functional operators are common in F#, and they are not that complicated as they seems. Two of the most common ones are the pipeline operator and function composition. You can easily define your own as well.
+Functional operators are common in F#, and they are not as complicated as they seem. Two of the most common ones are the pipeline operator and function composition. You can easily define your own as well.
 
 * `|>` pipeline operator
 
@@ -971,7 +971,7 @@ Use `Map.find` if you know that the value exists, otherwise use `tryFind` and de
 
 * In F# you want to avoid mutability, but some times it makes sense to bypass the default rules
 * You can create mutable variables by using the keyword `mutable` and the `<-` operator to "re-bind" a variables.
-* Try to do it at the ages or keep it local
+* Try to do it at the edges or keep it local
 
 </div>
 
@@ -1147,7 +1147,7 @@ Some helper values:
 
 <div class="content">
 
-* Comment out the `TicketsTests` and implement the functions it cover
+* Comment out the `TicketsTests` and implement the functions it covers
 * (This is probably not the best example of a good unit test)
 
 
@@ -1176,7 +1176,7 @@ Some helper values:
 
     type DestinationService() = 
 
-* Add member the following member functions that just call the functions in the `Data` module:
+* Add the following member functions that just call the functions in the `Data` module:
 
 
     member this.GetDestinations = // add correct function call here
@@ -1250,7 +1250,7 @@ Run with `Alt+Enter` in Visual Studio.
 
 <div class="content">
 
-When composing components it is done in mostly to different places:
+When composing components it is done in mostly two different places:
 
 * Compose types
 * Compose functions
@@ -1281,7 +1281,7 @@ Can be used to define external interface from an application
 
 <div class="content">
 
-Some times the function you want to expose does not match in type and/or structure with the domain function, or you need to combine multiple functions together.
+Sometimes the function you want to expose does not match in type and/or structure with the domain function, or you need to combine multiple functions together.
 
     let createTicket request customer = 
         let ticket = Domain.createTicket customer request // Wrapping domain function
