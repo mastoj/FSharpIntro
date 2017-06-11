@@ -125,7 +125,7 @@
 <div class="tip" id="fs77">val bind : binder:(&#39;T -&gt; &#39;U option) -&gt; option:&#39;T option -&gt; &#39;U option<br /><br />Full name: Microsoft.FSharp.Core.Option.bind</div>
 <div class="tip" id="fs78">val numbers : int list<br /><br />Full name: index.numbers</div>
 <div class="tip" id="fs79">val evenNumbers : int list<br /><br />Full name: index.evenNumbers</div>
-<div class="tip" id="fs80">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IReadOnlyCollection&lt;&#39;T&gt;<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs80">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
 <div class="tip" id="fs81">val filter : predicate:(&#39;T -&gt; bool) -&gt; list:&#39;T list -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.filter</div>
 <div class="tip" id="fs82">val sum : int<br /><br />Full name: index.sum</div>
 <div class="tip" id="fs83">val fold : folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; state:&#39;State -&gt; list:&#39;T list -&gt; &#39;State<br /><br />Full name: Microsoft.FSharp.Collections.List.fold</div>
@@ -206,7 +206,7 @@
 <li>Module 2 - Functions, operators, pattern matching, option and little bit of lists</li>
 <li>Module 3 - More options, lists</li>
 <li>Module 4 - Maps and basic OO</li>
-<li>Module 5 - Composistion</li>
+<li>Module 5 - Composition</li>
 </ul>
 <p>Links:</p>
 <ul>
@@ -230,7 +230,7 @@
 <section >
 <h2><strong>Declarative</strong> over imperative</h2>
 <ul>
-<li>The code focus more on <strong>what</strong> to do, instead of how to do it</li>
+<li>The code focuses more on <strong>what</strong> to do, instead of how to do it</li>
 </ul>
 </section>
 <section >
@@ -277,7 +277,7 @@
 <div class="content">
 <ul>
 <li>5 different modules</li>
-<li>Each module focus on different topics (but might borrow from each other)</li>
+<li>Each module focuses on different topics (but might borrow from each other)</li>
 <li>Theory between each set of exercises</li>
 <li>Exercises that covers most of the theory</li>
 </ul>
@@ -564,9 +564,9 @@ Execute in two ways:
 <div class="content">
 <p>Now when you've seen some code it is time for some gotchas:</p>
 <ul>
-<li><strong>Order matter</strong></li>
-<li><strong>Structure matter</strong> (F# uses signficant space)</li>
-<li>F# types uses <strong>structural equality</strong> as default</li>
+<li><strong>Order matters</strong></li>
+<li><strong>Structure matters</strong> (F# uses signficant space)</li>
+<li>F# types use <strong>structural equality</strong> by default</li>
 <li>F# types are <strong>immutable</strong> by default</li>
 <li>F# types are <strong>not nullable</strong> by default</li>
 <li>F# has good <strong>type inference</strong> (but sometimes you need to help the compiler)</li>
@@ -714,7 +714,7 @@ Record type <code>Ticket</code> that has the following properties
 <section >
 <h2>Functions</h2>
 <div class="content">
-<p>Functions in F# are curried, that is, they only has <strong>1</strong> argument!</p>
+<p>Functions in F# are curried, that is, they only have <strong>1</strong> argument!</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -776,7 +776,7 @@ Record type <code>Ticket</code> that has the following properties
 <section >
 <h2>Operators</h2>
 <div class="content">
-<p>Functional operators are common in F#, and they are not that complicated as they seems. Two of the most common ones are the pipeline operator and function composition. You can easily define your own as well.</p>
+<p>Functional operators are common in F#, and they are not as complicated as they seem. Two of the most common ones are the pipeline operator and function composition. You can easily define your own as well.</p>
 <ul>
 <li><code>|&gt;</code> pipeline operator</li>
 </ul>
@@ -1301,7 +1301,7 @@ Sequences (<code>IEnumerable</code>)
 <ul>
 <li>In F# you want to avoid mutability, but some times it makes sense to bypass the default rules</li>
 <li>You can create mutable variables by using the keyword <code>mutable</code> and the <code>&lt;-</code> operator to "re-bind" a variables.</li>
-<li>Try to do it at the ages or keep it local</li>
+<li>Try to do it at the edges or keep it local</li>
 </ul>
 </div>
 </section>
@@ -1537,7 +1537,7 @@ Key functions you might want to use
 <h2>Exercise 4.2 - Implement the in-memory store for tickets</h2>
 <div class="content">
 <ul>
-<li>Comment out the <code>TicketsTests</code> and implement the functions it cover</li>
+<li>Comment out the <code>TicketsTests</code> and implement the functions it covers</li>
 <li>(This is probably not the best example of a good unit test)</li>
 </ul>
 </div>
@@ -1565,7 +1565,7 @@ Key functions you might want to use
 </tr>
 </table>
 <ul>
-<li>Add member the following member functions that just call the functions in the <code>Data</code> module:</li>
+<li>Add the following member functions that just call the functions in the <code>Data</code> module:</li>
 </ul>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -1645,7 +1645,7 @@ Key functions you might want to use
 <section >
 <h2>Composing applications</h2>
 <div class="content">
-<p>When composing components it is done in mostly to different places:</p>
+<p>When composing components it is done in mostly two different places:</p>
 <ul>
 <li>Compose types</li>
 <li>Compose functions</li>
@@ -1679,7 +1679,7 @@ Key functions you might want to use
 <section >
 <h2>Composing functions</h2>
 <div class="content">
-<p>Some times the function you want to expose does not match in type and/or structure with the domain function, or you need to combine multiple functions together.</p>
+<p>Sometimes the function you want to expose does not match in type and/or structure with the domain function, or you need to combine multiple functions together.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
